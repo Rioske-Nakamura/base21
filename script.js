@@ -8,11 +8,11 @@ class MeuErro extends Error {
 
 class Produto{
     constructor( Nome, Data_de_Cadastro, Descricao,Preco){
-        this.Nome = Nome,
-        this.Data_de_Cadastro = Data_de_Cadastro,
-        this.Descricao = Descricao,
+        this.Nome = Nome;
+        this.Data_de_Cadastro = Data_de_Cadastro;
+        this.Descricao = Descricao;
         this.Preco = Preco
-    };
+    }
 
     emprimirPrincipal() {
         try {
@@ -24,7 +24,7 @@ class Produto{
 
 
     emprimir(){
-        if(this.nome != "" && this.Descricao != "" && this.Data_de_Cadastro != "" && this.Preco != ""){
+        if(this.Nome != "" && this.Descricao != "" && this.Data_de_Cadastro != "" && this.Preco != ""){
         return `
         <div class="card-header">
         ${this.Nome}
@@ -35,7 +35,8 @@ class Produto{
       <p> ${'R$ ' + this.Preco} </p>
     </blockquote>
   </div>
-        `}else {
+        `
+    }else {
             throw new MeuErro("Mensagem de erro");
           }
     }
@@ -45,7 +46,7 @@ class Produto{
 
 class ProdutosDestaque extends Produto{
     constructor(Nome, Data_de_Cadastro, Descricao,Preco, imagem){
-        super(Nome, Data_de_Cadastro, Descricao,Preco),
+        super(Nome, Data_de_Cadastro, Descricao,Preco);
         this.imagem = imagem
        
     }
@@ -59,18 +60,18 @@ class ProdutosDestaque extends Produto{
       }
 
     mostrardestaque(){
-        if(this.nome != "" && this.Descricao != "" && this.Data_de_Cadastro != "" && this.Preco != "" &&  this.imagem != "" && this.Descricao != ""){
+        if(this.Nome != "" && this.Descricao != "" && this.Data_de_Cadastro != "" && this.Preco != "" &&  this.imagem != "" && this.Descricao != ""){
         return `
-        <img src=${this.imagem} class="card-img-top">  </img>
-        <div class="card-body">
-        <h1 class="card-title"> ${this.Nome} </h1>
-        <p class="card-text"> ${this.Data_de_Cadastro} </p>
-        <p class="card-text"> ${this.Descricao} </p>
-        <h3 class="card-text"> ${'R$ '+this.Preco} </h3>
-        </div>`
+            <img src=${this.imagem} class="card-img-top">  </img>
+            <div class="card-body">
+            <h1 class="card-title"> ${this.Nome} </h1>
+            <p class="card-text"> ${this.Data_de_Cadastro} </p>
+            <p class="card-text"> ${this.Descricao} </p>
+            <h3 class="card-text"> ${'R$ '+this.Preco} </h3>
+            </div>`
         }else {
             throw new MeuErro("Mensagem de erro");
-          }
+        }
         
         //  
     }
