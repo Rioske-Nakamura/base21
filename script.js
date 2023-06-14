@@ -1,4 +1,10 @@
 // divListaProduto.insertAdjacentHTML('afterbegin', '');
+class MeuErro extends Error {
+    constructor(message){
+      super(message);
+      this.name = "Meu Erro";
+    }
+  }
 
 class Produto{
     constructor( Nome, Data_de_Cadastro, Descricao,Preco){
@@ -8,8 +14,17 @@ class Produto{
         this.Preco = Preco
     };
 
+    emprimirPrincipal() {
+        try {
+          return this.emprimir();
+        } catch (error) {
+          return error
+        }
+      }
+
+
     emprimir(){
-        
+        if(this.nome != "" && this.Descricao != "" && this.Data_de_Cadastro != "" && this.Preco != ""){
         return `
         <div class="card-header">
         ${this.Nome}
@@ -20,11 +35,9 @@ class Produto{
       <p> ${'R$ ' + this.Preco} </p>
     </blockquote>
   </div>
-
-       
-        
-        
-        `
+        `}else {
+            throw new MeuErro("Mensagem de erro");
+          }
     }
 
 };
@@ -37,7 +50,16 @@ class ProdutosDestaque extends Produto{
        
     }
 
+    emprimirDestaquePrincipal() {
+        try {
+          return this.mostrardestaque();
+        } catch (error) {
+          return error
+        }
+      }
+
     mostrardestaque(){
+        if(this.nome != "" && this.Descricao != "" && this.Data_de_Cadastro != "" && this.Preco != "" &&  this.imagem != "" && this.Descricao != ""){
         return `
         <img src=${this.imagem} class="card-img-top">  </img>
         <div class="card-body">
@@ -46,20 +68,23 @@ class ProdutosDestaque extends Produto{
         <p class="card-text"> ${this.Descricao} </p>
         <h3 class="card-text"> ${'R$ '+this.Preco} </h3>
         </div>`
-        
+        }else {
+            throw new MeuErro("Mensagem de erro");
+          }
         
         //  
     }
 }
 
-let produtos= new Produto("BelaAna", "2009-01-09", "Produto de Baixa Qualidade", 1.99)
-let div= document.getElementById("lista-produtos")
 
-div.insertAdjacentHTML('afterbegin', produtos.emprimir())
+let div= document.getElementById("lista-produtos")
+let produtos= new Produto("", "2009-01-09", "Produto de Baixa Qualidade", 1.99)
+
+div.insertAdjacentHTML('afterbegin', produtos.emprimirPrincipal())
 
 //Destacados
-let produtodestaque= new ProdutosDestaque("Vall","2019-02-22","Uma variante bem boazinha", 50, "kaka.jpg")
-let divD = document.getElementById("produto-destaque")
 
-console.log(produtodestaque.mostrardestaque())
-divD.insertAdjacentHTML('afterbegin', produtodestaque.mostrardestaque())
+let divD = document.getElementById("produto-destaque")
+let produtodestaque= new ProdutosDestaque("Vall","2019-02-22","Uma variante bem boazinha", 50, "kaka.jpg")
+
+divD.insertAdjacentHTML('afterbegin', produtodestaque.emprimirDestaquePrincipal())
